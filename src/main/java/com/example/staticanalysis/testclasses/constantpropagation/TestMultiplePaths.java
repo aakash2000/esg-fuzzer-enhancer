@@ -1,8 +1,8 @@
-package com.example.staticanalysis.testclasses;
+package com.example.staticanalysis.testclasses.constantpropagation;
 
 public class TestMultiplePaths {
     public static void main(String[] args) {
-        int a = 5;
+        int a = args.length;
         int b;
         if (a == 5) {
             b = 10;

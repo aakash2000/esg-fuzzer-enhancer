@@ -1,4 +1,4 @@
-package com.example.staticanalysis.testclasses;
+package com.example.staticanalysis.testclasses.constantpropagation;
 
 public class TestLoops {
     public static void main(String[] args) {

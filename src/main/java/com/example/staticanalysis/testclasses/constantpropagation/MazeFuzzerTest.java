@@ -1,9 +1,10 @@
-package com.example.staticanalysis.testclasses;
+package com.example.staticanalysis.testclasses.constantpropagation;
 
 import com.code_intelligence.jazzer.api.Consumer3;
 import com.code_intelligence.jazzer.api.Jazzer;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.concurrent.TimeUnit;
 
@@ -141,5 +142,10 @@ public final class MazeFuzzerTest {
             }
         });
         return renderMaze(mutableMaze);
+    }
+
+    public static void main(String[] args) {
+        Object inputs = new Scanner(System.in);
+        fuzzerTestOneInput(inputs.toString().getBytes());
     }
 }
