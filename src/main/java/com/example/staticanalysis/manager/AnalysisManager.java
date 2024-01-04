@@ -2,19 +2,11 @@ package com.example.staticanalysis.manager;
 
 import com.example.staticanalysis.analysis.ConstantPropagationAnalysis;
 import com.example.staticanalysis.analysis.ICFGGeneration;
-import org.graphstream.graph.Graph;
-import org.graphstream.graph.Node;
-import org.graphstream.graph.implementations.SingleGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import soot.*;
-import soot.jimple.spark.SparkTransformer;
-import soot.jimple.toolkits.callgraph.CallGraph;
-import soot.jimple.toolkits.callgraph.Edge;
 import soot.options.Options;
 
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.Map;
 
 public class AnalysisManager {
@@ -49,7 +41,6 @@ public class AnalysisManager {
         Options.v().setPhaseOption("cg.spark", "enabled:true");
         Options.v().setPhaseOption("cg.spark", "verbose:true");
         Options.v().setPhaseOption("cg.spark", "on-fly-cg:true");
-
     }
 
     public static void setDebugOptions() {
@@ -86,8 +77,8 @@ public class AnalysisManager {
         c.setApplicationClass();
     }
 
-    public static void runICFGAnalysis(String className) {
-        ICFGGeneration.generateCallGraph(className);
+    public static void runICFGAnalysis(String className, Map<String, Map<Value, Value[]>> data_facts) {
+        ICFGGeneration.generateCallGraph(className, data_facts);
     }
 
     public static Map<String, Map<Value, Value[]>> getResults() {

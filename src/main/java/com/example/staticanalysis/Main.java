@@ -7,6 +7,8 @@ import soot.Scene;
 import soot.SootClass;
 import soot.Value;
 
+import java.util.Map;
+
 
 public class Main {
         private static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -50,6 +52,7 @@ public class Main {
                 });
 
             });
+            Map<String, Map<Value, Value[]>> data_facts = AnalysisManager.getResults();
             logger.info("=====================================");
             AnalysisManager.resetSoot();
             logger.info("Setting Soot init options...");
@@ -65,7 +68,7 @@ public class Main {
             AnalysisManager.loadClass(CLASS_TO_ANALYZE);
 
             logger.info("Running analysis...");
-            AnalysisManager.runICFGAnalysis(CLASS_TO_ANALYZE);
+            AnalysisManager.runICFGAnalysis(CLASS_TO_ANALYZE, data_facts);
             logger.info("Done!");
         }
 

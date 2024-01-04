@@ -1,5 +1,6 @@
 package com.example.staticanalysis.analysis;
 
+import com.example.staticanalysis.manager.AnalysisManager;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -7,16 +8,17 @@ import org.slf4j.Logger;
 import soot.*;
 import soot.jimple.spark.SparkTransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
-import soot.jimple.toolkits.callgraph.Edge;
+
+import soot.jimple.toolkits.ide.JimpleIDESolver;
 import soot.toolkits.graph.ExceptionalUnitGraph;
 import soot.toolkits.graph.UnitGraph;
 
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.Map;
 
 public class ICFGGeneration {
     public static final Logger logger = org.slf4j.LoggerFactory.getLogger(ICFGGeneration.class);
-    public static void generateCallGraph(String className) {
+    public static void generateCallGraph(String className, Map<String, Map<Value, Value[]>> data_facts) {
         logger.info("Resolving class...");
         SootClass c = Scene.v().forceResolve(className, SootClass.BODIES);
 
@@ -31,11 +33,22 @@ public class ICFGGeneration {
             System.exit(1);
         }
         c.setApplicationClass();
-
         Scene.v().setEntryPoints(Collections.singletonList(Scene.v().getMainMethod()));
-        System.out.println(c.getMethods());
+
+        logger.info("Running Constant Propagation...");
+        AnalysisManager.setConstantPropagationAnalysis();
+
+        logger.info("Running Soot...");
+        //AnalysisManager.runAnalysis();
+
+        logger.info("Running Spark...");
         SparkTransformer.v().transform();
-        // Initialize GraphStream graph
+
+        ESGGenerationProblem problem = new ESGGenerationProblem(Scene.v().getMainMethod(), data_facts);
+        JimpleIDESolver<?, ?, ?> solver = new JimpleIDESolver<>(problem, true);
+        solver.solve();
+
+        /*// Initialize GraphStream graph
         System.setProperty("org.graphstream.ui", "swing"); // Use Swing for the UI
         Graph graph = new SingleGraph("CallGraph");
         graph.setAttribute("ui.stylesheet", "node { fill-color: blue; }");
@@ -70,9 +83,8 @@ public class ICFGGeneration {
                 continue;
             }
         }
-
         // Display the graph
-        graph.display();
+        graph.display();*/
     }
 
     public static void handleMethodStmts(SootMethod method, Graph graph) {
