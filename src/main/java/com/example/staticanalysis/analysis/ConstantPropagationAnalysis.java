@@ -1,5 +1,6 @@
 package com.example.staticanalysis.analysis;
 
+import com.example.staticanalysis.analysis.data.DFF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import soot.*;
@@ -11,10 +12,13 @@ import java.util.*;
 
 public class ConstantPropagationAnalysis extends BodyTransformer {
     protected static Map<Value, Value[]> constantValues = new HashMap<>();
+    protected static Map<Unit, Set<Value>> unitConstantValues = new HashMap<>();
 
     protected static Map<String, Map<Value, Value[]>> methodConstantValues = new HashMap<>();
     protected static Map<String, Value> methodInvokeConstants = new HashMap<>();
     protected static Map<String, Value> methodReturnConstants = new HashMap<>();
+
+    protected static Set<DFF> data_facts = new LinkedHashSet<>();
     private static final Logger logger = LoggerFactory.getLogger(ConstantPropagationAnalysis.class);
 
     List<String> CONSTANT_TO_CAPTURE = Arrays.asList(
@@ -40,6 +44,7 @@ public class ConstantPropagationAnalysis extends BodyTransformer {
                 if ((CONSTANT_TO_CAPTURE.contains(local.getClass().getName()) || local.getClass().getName().equals("soot.jimple.internal.JimpleLocal"))
                         && methodInvokeConstants.containsKey(body.getMethod().getName())) {
                     put(local, methodInvokeConstants.get(body.getMethod().getName()));
+                    putInUnitMap(body.getUnits().getFirst(), methodInvokeConstants.get(body.getMethod().getName()));
                 }
             }
         }
@@ -78,8 +83,8 @@ public class ConstantPropagationAnalysis extends BodyTransformer {
             }
         }
 
-        // Replace all local variables with their constant values
-        for (Iterator<Unit> unitIt = body.getUnits().snapshotIterator(); unitIt.hasNext(); ) {
+        // Replace all local variables with their constant values - TODO: Check if getUseBoxes() gives precise output
+        /*for (Iterator<Unit> unitIt = body.getUnits().snapshotIterator(); unitIt.hasNext(); ) {
             Unit unit = unitIt.next();
             for (ValueBox valueBox : unit.getUseBoxes()) {
                 Value value = valueBox.getValue();
@@ -94,7 +99,7 @@ public class ConstantPropagationAnalysis extends BodyTransformer {
                     }
                 }
             }
-        }
+        }*/
 
         // Store the constant values for this method
         if (!constantValues.isEmpty()) {
@@ -129,24 +134,29 @@ public class ConstantPropagationAnalysis extends BodyTransformer {
             if (leftOp instanceof StaticFieldRef || leftOp instanceof JimpleLocal) {
                 //logger.info("Adding constant value: " + leftOp + " = " + rightOp);
                 put(leftOp, rightOp);
+                putInUnitMap(assignStmt, rightOp);
             }
         } else if (rightOp instanceof AbstractBinopExpr) {
             //logger.info("Adding constant value: " + assignStmt.getLeftOp() + " = " + rightOp);
-            Value value = evaluateExpr((AbstractBinopExpr) rightOp);
+            // Value value = evaluateExpr((AbstractBinopExpr) rightOp);
+            Value value = extractVariableAndFetchValue((AbstractBinopExpr) rightOp);
             if (value != null) {
                 put(assignStmt.getLeftOp(), value);
+                putInUnitMap(assignStmt, value);
             }
         } else if (rightOp instanceof UnopExpr) {
             //logger.info("Adding constant value: " + assignStmt.getLeftOp() + " = " + rightOp);
             Value value = evaluateExpr((UnopExpr) rightOp);
             if (value != null) {
                 put(assignStmt.getLeftOp(), value);
+                putInUnitMap(assignStmt, value);
             }
         } else if (rightOp instanceof InvokeExpr) {
             InvokeExpr invokeExpr = (InvokeExpr) rightOp;
             if (methodReturnConstants.containsKey(invokeExpr.getMethod().getName())) {
                 Value value = methodReturnConstants.get(invokeExpr.getMethod().getName());
                 put(assignStmt.getLeftOp(), value);
+                putInUnitMap(assignStmt, value);
             }
         }
     }
@@ -158,8 +168,10 @@ public class ConstantPropagationAnalysis extends BodyTransformer {
             Value rightOp = ((AbstractBinopExpr) condition).getOp2();
             if (CONSTANT_TO_CAPTURE.contains(leftOp.getClass().getName())) {
                 put(rightOp, leftOp);
+                putInUnitMap(ifStmt, leftOp);
             } else if (CONSTANT_TO_CAPTURE.contains(rightOp.getClass().getName())) {
                 put(leftOp, rightOp);
+                putInUnitMap(ifStmt, rightOp);
             }
         }
     }
@@ -175,13 +187,17 @@ public class ConstantPropagationAnalysis extends BodyTransformer {
 
                 // Store the character instead of the integer
                 put(StringConstant.v(compositeKey), StringConstant.v(String.valueOf(asciiChar)));
+                putInUnitMap(switchStmt, StringConstant.v(String.valueOf(asciiChar)));
             } else {
                 // If it's not a valid ASCII value, handle as usual
                 put(StringConstant.v(compositeKey), IntConstant.v(lookupValue));
+                putInUnitMap(switchStmt, IntConstant.v(lookupValue));
             }
         }
     }
     public void put(Value key, Value value) {
+        DFF data_fact = new DFF(value);
+        data_facts.add(data_fact);
         // Check if the key already exists in the map
         if (constantValues.containsKey(key)) {
             Value[] values = constantValues.get(key);
@@ -198,6 +214,34 @@ public class ConstantPropagationAnalysis extends BodyTransformer {
             // If the key does not exist, create a new entry with this value
             constantValues.put(key, new Value[] { value });
         }
+    }
+
+    public void putInUnitMap(Unit unit, Value value) {
+        DFF data_fact = new DFF(unit, value);
+        data_facts.add(data_fact);
+        if (unitConstantValues.containsKey(unit)) {
+            Set<Value> values = unitConstantValues.get(unit);
+            values.add(value);
+        } else {
+            Set<Value> values = new HashSet<>();
+            values.add(value);
+            unitConstantValues.put(unit, values);
+        }
+    }
+
+    public Value extractVariableAndFetchValue(AbstractBinopExpr expr) {
+        Value leftOp = expr.getOp1();
+        Value rightOp = expr.getOp2();
+
+        // Check if the left or right operand is a variable, check if it has a value in the map
+        if (leftOp instanceof JimpleLocal && constantValues.containsKey(leftOp)) {
+            return getOp(leftOp);
+        } else if (rightOp instanceof JimpleLocal && constantValues.containsKey(rightOp)) {
+            return getOp(rightOp);
+        }
+
+
+        return null;
     }
 
     public Value evaluateExpr(AbstractBinopExpr expr) {
@@ -397,5 +441,13 @@ public class ConstantPropagationAnalysis extends BodyTransformer {
 
     public Map<String, Map<Value, Value[]>> getMethodConstantValues() {
         return methodConstantValues;
+    }
+
+    public Map<Unit, Set<Value>> getUnitConstantValues() {
+        return unitConstantValues;
+    }
+
+    public Set<DFF> getDataFacts() {
+        return data_facts;
     }
 }

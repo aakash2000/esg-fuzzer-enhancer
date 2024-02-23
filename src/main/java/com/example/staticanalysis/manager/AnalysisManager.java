@@ -2,15 +2,17 @@ package com.example.staticanalysis.manager;
 
 import com.example.staticanalysis.analysis.ConstantPropagationAnalysis;
 import com.example.staticanalysis.analysis.ICFGGeneration;
+import com.example.staticanalysis.analysis.data.DFF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import soot.*;
 import soot.options.Options;
 
 import java.util.Map;
+import java.util.Set;
 
 public class AnalysisManager {
-    public static final ConstantPropagationAnalysis cp = new ConstantPropagationAnalysis();;
+    public static final ConstantPropagationAnalysis cp = new ConstantPropagationAnalysis();
     private static final Logger logger = LoggerFactory.getLogger(AnalysisManager.class);
     
     public static void setSootClassPath() {
@@ -77,11 +79,15 @@ public class AnalysisManager {
         c.setApplicationClass();
     }
 
-    public static void runICFGAnalysis(String className, Map<String, Map<Value, Value[]>> data_facts) {
+    public static void runICFGAnalysis(String className, Set<DFF> data_facts) {
         ICFGGeneration.generateCallGraph(className, data_facts);
     }
 
     public static Map<String, Map<Value, Value[]>> getResults() {
         return cp.getMethodConstantValues();
+    }
+
+    public static Set<DFF> getResultsICFG() {
+        return cp.getDataFacts();
     }
 }

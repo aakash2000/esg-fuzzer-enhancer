@@ -1,13 +1,16 @@
 package com.example.staticanalysis;
 
+import com.example.staticanalysis.analysis.data.DFF;
 import com.example.staticanalysis.manager.AnalysisManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import soot.Scene;
 import soot.SootClass;
+import soot.Unit;
 import soot.Value;
 
 import java.util.Map;
+import java.util.Set;
 
 
 public class Main {
@@ -39,20 +42,16 @@ public class Main {
             AnalysisManager.setConstantPropagationAnalysis();
             logger.info("Running analysis...");
             AnalysisManager.runAnalysis();
-            logger.info("Captured results:");
+            logger.info("Captured data facts:");
             logger.info("=====================================");
-            AnalysisManager.getResults().forEach((k, v) -> {
-                logger.info("Method: " + k);
-                v.forEach((k1, v1) -> {
-                    StringBuilder valString = new StringBuilder();
-                    for (Value value : v1) {
-                        valString.append(value).append(", ");
-                    }
-                    logger.info("Values: " + k1 + ": " + valString);
-                });
-
+            AnalysisManager.getResultsICFG().forEach(dff -> {
+                if (dff.getPair() == null) {
+                    logger.info("Fact: " + dff.getFact());
+                } else {
+                    logger.info("Pair: " + dff.getPair());
+                }
             });
-            Map<String, Map<Value, Value[]>> data_facts = AnalysisManager.getResults();
+            Set<DFF> data_facts = AnalysisManager.getResultsICFG();
             logger.info("=====================================");
             AnalysisManager.resetSoot();
             logger.info("Setting Soot init options...");

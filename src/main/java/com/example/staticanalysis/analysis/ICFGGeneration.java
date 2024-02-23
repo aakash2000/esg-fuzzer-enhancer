@@ -1,24 +1,23 @@
 package com.example.staticanalysis.analysis;
 
+import com.example.staticanalysis.analysis.data.DFF;
 import com.example.staticanalysis.manager.AnalysisManager;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
-import org.graphstream.graph.implementations.SingleGraph;
 import org.slf4j.Logger;
 import soot.*;
 import soot.jimple.spark.SparkTransformer;
-import soot.jimple.toolkits.callgraph.CallGraph;
 
 import soot.jimple.toolkits.ide.JimpleIDESolver;
 import soot.toolkits.graph.ExceptionalUnitGraph;
 import soot.toolkits.graph.UnitGraph;
 
 import java.util.Collections;
-import java.util.Map;
+import java.util.Set;
 
 public class ICFGGeneration {
     public static final Logger logger = org.slf4j.LoggerFactory.getLogger(ICFGGeneration.class);
-    public static void generateCallGraph(String className, Map<String, Map<Value, Value[]>> data_facts) {
+    public static void generateCallGraph(String className, Set<DFF> data_facts) {
         logger.info("Resolving class...");
         SootClass c = Scene.v().forceResolve(className, SootClass.BODIES);
 
@@ -43,13 +42,17 @@ public class ICFGGeneration {
 
         logger.info("Running Spark...");
         SparkTransformer.v().transform();
-
+        logger.info(String.valueOf(Scene.v().getMainMethod()));
         ESGGenerationProblem problem = new ESGGenerationProblem(Scene.v().getMainMethod(), data_facts);
         JimpleIDESolver<?, ?, ?> solver = new JimpleIDESolver<>(problem, true);
-        solver.solve();
+        try {
+            solver.solve();
+        } catch (Exception e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
 
-        /*// Initialize GraphStream graph
-        System.setProperty("org.graphstream.ui", "swing"); // Use Swing for the UI
+        // Initialize GraphStream graph
+        /*System.setProperty("org.graphstream.ui", "swing"); // Use Swing for the UI
         Graph graph = new SingleGraph("CallGraph");
         graph.setAttribute("ui.stylesheet", "node { fill-color: blue; }");
         // Access and process the call graph
