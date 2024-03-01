@@ -5,7 +5,7 @@ public class ConditionalFlowTest {
     public static final int CONSTANT_B = 5;
 
     public static void main(String[] args) {
-        compute(7); // Example dynamic input
+        compute(args.length); // Example dynamic input
     }
 
     public static void compute(int dynamicInput) {

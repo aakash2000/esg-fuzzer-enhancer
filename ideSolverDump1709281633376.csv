@@ -1,0 +1,15 @@
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: int getConstant()>;return 10@0;DFF{pair=null, fact=0};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;$stack3 = staticinvoke <com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: int getConstant()>()@1;DFF{pair=null, fact=0};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;$stack4 = <java.lang.System: java.io.PrintStream out>@3;DFF{pair=UnitValuePair{unit=b = $stack3 + 5, value=b}, fact=b};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;$stack4 = <java.lang.System: java.io.PrintStream out>@3;DFF{pair=UnitValuePair{unit=b = $stack3 + 5, value=b}, fact=b};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;$stack4 = <java.lang.System: java.io.PrintStream out>@3;DFF{pair=UnitValuePair{unit=b = $stack3 + 5, value=b}, fact=b};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;args := @parameter0: java.lang.String[]@0;DFF{pair=null, fact=0};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;b = $stack3 + 5@2;DFF{pair=null, fact=0};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;return@5;DFF{pair=UnitValuePair{unit=b = $stack3 + 5, value=b}, fact=b};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;return@5;DFF{pair=UnitValuePair{unit=b = $stack3 + 5, value=b}, fact=b};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;return@5;DFF{pair=UnitValuePair{unit=b = $stack3 + 5, value=b}, fact=b};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;virtualinvoke $stack4.<java.io.PrintStream: void println(int)>(b)@4;DFF{pair=UnitValuePair{unit=b = $stack3 + 5, value=b}, fact=b};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;virtualinvoke $stack4.<java.io.PrintStream: void println(int)>(b)@4;DFF{pair=UnitValuePair{unit=b = $stack3 + 5, value=b}, fact=b};2147483647
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;virtualinvoke $stack4.<java.io.PrintStream: void println(int)>(b)@4;DFF{pair=UnitValuePair{unit=b = $stack3 + 5, value=b}, fact=b};2147483647
+<java.lang.Object: void <clinit>()>;return@1;DFF{pair=null, fact=0};2147483647
+<java.lang.Object: void <clinit>()>;staticinvoke <java.lang.Object: void registerNatives()>()@0;DFF{pair=null, fact=0};2147483647

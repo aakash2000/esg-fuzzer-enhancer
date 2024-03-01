@@ -2,6 +2,7 @@ package com.example.staticanalysis;
 
 import com.example.staticanalysis.analysis.data.DFF;
 import com.example.staticanalysis.manager.AnalysisManager;
+import com.example.staticanalysis.visualizer.GraphFromCSV;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import soot.Scene;
@@ -15,8 +16,7 @@ import java.util.Set;
 
 public class Main {
         private static final Logger logger = LoggerFactory.getLogger(Main.class);
-        public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.ConditionalFlowTest"; /* WORKS */
-        //public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural"; /* WORKS */
+        public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural"; /* WORKS */
         //public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.TestLoops";
         //public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.TestMultiplePaths"; /* WORKS */
         //public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.TestSwitch";
@@ -68,6 +68,16 @@ public class Main {
 
             logger.info("Running analysis...");
             AnalysisManager.runICFGAnalysis(CLASS_TO_ANALYZE, data_facts);
+
+
+            logger.info("Sleeping for 4 seconds to allow the graph to be generated...");
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            logger.info("Generating graph from CSV dump...");
+            GraphFromCSV.main(args);
             logger.info("Done!");
         }
 

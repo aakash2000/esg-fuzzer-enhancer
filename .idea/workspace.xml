@@ -4,21 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7c6477e-fe8b-4752-a997-d804d499180f" name="Changes" comment="Add heros IDESolver and create IDETabulationProblem problem">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/data/AnalysisType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/edgefunctions/constantpropagation/NormalEdgeFunction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/flowfunctions/FlowFunctionProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/util/UnitValuePair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="f7c6477e-fe8b-4752-a997-d804d499180f" name="Changes" comment="Create Generic Edge and Flow function and providers.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/ConstantPropagationAnalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/ConstantPropagationAnalysis.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/ESGGenerationProblem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/ESGGenerationProblem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/ICFGGeneration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/ICFGGeneration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/manager/AnalysisManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/manager/AnalysisManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/data/DFF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/data/DFF.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/edgefunctions/constantpropagation/ConstantPropagationEdgeFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/edgefunctions/constantpropagation/ConstantPropagationEdgeFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/flowfunctions/constantpropagation/ConstantPropagationFlowFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/flowfunctions/constantpropagation/ConstantPropagationFlowFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/flowfunctions/constantpropagation/NormalFlowFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/flowfunctions/constantpropagation/NormalFlowFunction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/testclasses/constantpropagation/ConditionalFlowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/testclasses/constantpropagation/ConditionalFlowTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/main/java/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,13 +58,15 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.ConditionalFlowTest.executor": "Run",
+    "Application.GraphFromCSV.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.SimpleGraphDemo.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/cashman/code/personal/sootcode/esg-fuzzer-enhancer",
+    "last_opened_file_path": "/Users/cashman/code/personal/sootcode/esg-fuzzer-enhancer/src/main/java/com/example/staticanalysis",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -84,6 +80,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/example/staticanalysis" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/testclasses" />
     </key>
@@ -91,7 +90,20 @@
       <recent name="com.example.staticanalysis.testclasses.constantpropagation" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="GraphFromCSV" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.staticanalysis.visualizer.GraphFromCSV" />
+      <module name="esg-fuzzer-enhancer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.staticanalysis.visualizer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.example.staticanalysis.Main" />
       <module name="esg-fuzzer-enhancer" />
@@ -99,6 +111,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GraphFromCSV" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -127,7 +144,8 @@
       <workItem from="1707737663750" duration="23000" />
       <workItem from="1707775292441" duration="5218000" />
       <workItem from="1708073021064" duration="761000" />
-      <workItem from="1708656412292" duration="15318000" />
+      <workItem from="1708656412292" duration="20552000" />
+      <workItem from="1709230002548" duration="9327000" />
     </task>
     <task id="LOCAL-00001" summary="Add changes">
       <option name="closed" value="true" />
@@ -145,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704333129964</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Create Generic Edge and Flow function and providers.">
+      <option name="closed" value="true" />
+      <created>1708675591491</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1708675591491</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,6 +191,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add changes" />
     <MESSAGE value="Add heros IDESolver and create IDETabulationProblem problem" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add heros IDESolver and create IDETabulationProblem problem" />
+    <MESSAGE value="Create Generic Edge and Flow function and providers." />
+    <option name="LAST_COMMIT_MESSAGE" value="Create Generic Edge and Flow function and providers." />
   </component>
 </project>

@@ -52,11 +52,4 @@ public class DFF {
         return Objects.hash(pair, fact);
     }
 
-    public DFF getBottom() {
-        return new DFF(null);
-    }
-
-    public boolean isConstant() {
-        return pair == null;
-    }
 }

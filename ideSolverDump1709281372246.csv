@@ -1,0 +1,1 @@
+<com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural: void main(java.lang.String[])>;args := @parameter0: java.lang.String[]@0;DFF{pair=null, fact=0};2147483647

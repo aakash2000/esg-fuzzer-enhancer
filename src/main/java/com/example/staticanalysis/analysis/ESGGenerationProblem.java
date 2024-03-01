@@ -3,6 +3,8 @@ package com.example.staticanalysis.analysis;
 import com.example.staticanalysis.analysis.data.AnalysisType;
 import com.example.staticanalysis.analysis.data.DFF;
 import com.example.staticanalysis.analysis.edgefunctions.EdgeFunctionProvider;
+import com.example.staticanalysis.analysis.edgefunctions.constantpropagation.GenericEdgeFunction;
+import com.example.staticanalysis.analysis.edgefunctions.constantpropagation.NormalEdgeFunction;
 import com.example.staticanalysis.analysis.flowfunctions.FlowFunctionProvider;
 import heros.*;
 import org.slf4j.Logger;
@@ -12,6 +14,8 @@ import soot.jimple.*;
 import soot.jimple.toolkits.ide.icfg.JimpleBasedInterproceduralCFG;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import heros.IDETabulationProblem;
+import soot.toolkits.graph.BriefUnitGraph;
+import soot.toolkits.graph.DirectedGraph;
 
 import java.util.*;
 
@@ -42,15 +46,29 @@ import java.util.*;
     public Map<Unit, Set<DFF>> initialSeeds() {
         logger.info("initialSeeds");
         Map<Unit, Set<DFF>> seeds = new HashMap<>();
-        this.data_facts.forEach(f -> {
+        /*this.data_facts.forEach(f -> {
             if (f.getPair() != null) {
                 seeds.put(f.getPair().getUnit(), Collections.singleton(f));
             }
         });
-        /* logger.info("Seeds: ");
+        logger.info("Seeds: ");
         seeds.forEach((k, v) -> {
             logger.info(k + " : " + v);
         });*/
+        for (SootClass c : Scene.v().getApplicationClasses()) {
+            for (SootMethod m : c.getMethods()) {
+                if (!m.hasActiveBody()) {
+                    continue;
+                }
+                if (m.getName().equals("main")) {
+                    //DirectedGraph<Unit> unitGraph = new BriefUnitGraph(m.getActiveBody());
+                    //SootMethod methodOf = icfg.getMethodOf(CFGUtil.getHead(unitGraph));
+                    //System.out.println(methodOf.get˚˚ActiveBody());
+                    //return DefaultSeeds.make(Collections.singleton(CFGUtil.getHead(unitGraph)), zeroValue());
+                    seeds.put(m.getActiveBody().getUnits().getFirst(), Collections.singleton(zeroValue()));
+                }
+            }
+        }
         return seeds;
     }
 
@@ -133,7 +151,7 @@ import java.util.*;
     public EdgeFunction<Value> allTopFunction() {
         logger.info("allTopFunction");
         // TODO: Implement all top function
-        return null;
+        return new NormalEdgeFunction();
     }
 
     @Override

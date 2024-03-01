@@ -16,22 +16,18 @@ public class ConstantPropagationFlowFunctions {
     private static final Logger logger = LoggerFactory.getLogger(ConstantPropagationFlowFunctions.class);
 
     public static FlowFunction<DFF> getNormalFlowFunction(Unit curr, Unit succ) {
-        logger.info("getNormalFlowFunction");
-        return new NormalFlowFunction();
+        return new NormalFlowFunction(curr, succ, "normal");
     }
 
     public static FlowFunction<DFF> getCallFlowFunction(Unit callStmt, SootMethod destinationMethod) {
-        logger.info("getCallFlowFunction");
-        return null;
+        return new NormalFlowFunction(callStmt, callStmt, "call");
     }
 
     public static FlowFunction<DFF> getReturnFlowFunction(Unit callSite, SootMethod calleeMethod, Unit exitStmt, Unit returnSite) {
-        logger.info("getReturnFlowFunction");
-        return null;
+        return new NormalFlowFunction(callSite, returnSite, "return");
     }
 
     public static FlowFunction<DFF> getCallToReturnFlowFunction(Unit unit, Unit n1) {
-        logger.info("getCallToReturnFlowFunction");
-        return null;
+        return new NormalFlowFunction(unit, n1, "call-to-return");
     }
 }
