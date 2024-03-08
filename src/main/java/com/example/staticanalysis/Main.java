@@ -1,6 +1,7 @@
 package com.example.staticanalysis;
 
 import com.example.staticanalysis.analysis.data.DFF;
+import com.example.staticanalysis.analysis.data.DFFManager;
 import com.example.staticanalysis.manager.AnalysisManager;
 import com.example.staticanalysis.visualizer.GraphFromCSV;
 import org.slf4j.Logger;
@@ -16,11 +17,12 @@ import java.util.Set;
 
 public class Main {
         private static final Logger logger = LoggerFactory.getLogger(Main.class);
-        public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural"; /* WORKS */
+        //public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.TestInterprocedural"; /* WORKS */
         //public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.TestLoops";
         //public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.TestMultiplePaths"; /* WORKS */
         //public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.TestSwitch";
         //public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.MazeFuzzerTest"; /* ATTENTION REQUIRED */
+        public static final String CLASS_TO_ANALYZE = "com.example.staticanalysis.testclasses.constantpropagation.ConditionalFlowTest"; /* WORKS */
 
         public static void main(String[] args) {
             logger.info("Starting analysis...");
@@ -69,15 +71,18 @@ public class Main {
             logger.info("Running analysis...");
             AnalysisManager.runICFGAnalysis(CLASS_TO_ANALYZE, data_facts);
 
-
-            logger.info("Sleeping for 4 seconds to allow the graph to be generated...");
+            System.out.println("Data Flow Facts:");
+            DFFManager.getInstance().getDFFs().forEach(dff -> {
+                System.out.println("DFF: "+ dff);
+            });
+            /*logger.info("Sleeping for 2 seconds to allow the graph to be generated...");
             try {
-                Thread.sleep(4000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             logger.info("Generating graph from CSV dump...");
-            GraphFromCSV.main(args);
+            GraphFromCSV.main(args);*/
             logger.info("Done!");
         }
 

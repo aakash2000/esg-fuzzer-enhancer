@@ -6,13 +6,32 @@
   <component name="ChangeListManager">
     <list default="true" id="f7c6477e-fe8b-4752-a997-d804d499180f" name="Changes" comment="Create Generic Edge and Flow function and providers.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709236482458.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709275263306.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709275323338.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709275478393.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709275508911.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709276141724.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709276177910.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709276246431.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709281258755.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709281341021.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709281372246.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709281400824.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709281485251.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709281522675.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709281633376.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709281681891.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709281789001.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ideSolverDump1709281980025.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/ESGGenerationProblem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/ESGGenerationProblem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/data/DFF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/data/DFF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/edgefunctions/constantpropagation/ConstantPropagationEdgeFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/edgefunctions/constantpropagation/ConstantPropagationEdgeFunctions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/flowfunctions/constantpropagation/ConstantPropagationFlowFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/flowfunctions/constantpropagation/ConstantPropagationFlowFunctions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/flowfunctions/constantpropagation/NormalFlowFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/flowfunctions/constantpropagation/NormalFlowFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/util/UnitValuePair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/analysis/util/UnitValuePair.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/testclasses/constantpropagation/ConditionalFlowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/testclasses/constantpropagation/ConditionalFlowTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/visualizer/GraphFromCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/staticanalysis/visualizer/GraphFromCSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/simplelogger.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/simplelogger.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,30 +74,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ConditionalFlowTest.executor": "Run",
-    "Application.GraphFromCSV.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.SimpleGraphDemo.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/cashman/code/personal/sootcode/esg-fuzzer-enhancer/src/main/java/com/example/staticanalysis",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.6655173",
-    "settings.editor.selected.configurable": "fileTemplates",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ConditionalFlowTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GraphFromCSV.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SimpleGraphDemo.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/cashman/code/personal/sootcode/esg-fuzzer-enhancer/src/main/java/com/example/staticanalysis&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.6655173&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;fileTemplates&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/example/staticanalysis" />
@@ -145,7 +164,9 @@
       <workItem from="1707775292441" duration="5218000" />
       <workItem from="1708073021064" duration="761000" />
       <workItem from="1708656412292" duration="20552000" />
-      <workItem from="1709230002548" duration="9327000" />
+      <workItem from="1709230002548" duration="20012000" />
+      <workItem from="1709668557418" duration="100000" />
+      <workItem from="1709668694533" duration="22779000" />
     </task>
     <task id="LOCAL-00001" summary="Add changes">
       <option name="closed" value="true" />

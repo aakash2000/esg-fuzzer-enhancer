@@ -3,8 +3,11 @@ package com.example.staticanalysis.visualizer;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
+import org.graphstream.ui.view.util.DefaultMouseManager;
 
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -36,7 +39,7 @@ public class GraphFromCSV {
                 String statement = parts[1].replaceAll("com.example.staticanalysis.testclasses.constantpropagation.", "").replaceAll("java.lang.String", "String");
                 String DFF = parts[2].replaceAll("com.example.staticanalysis.testclasses.constantpropagation.", "").replaceAll("java.lang.String", "String");
                 if (graph.getNode(methodSignature+" "+statement+" "+DFF) == null) {
-                    Node currNode = graph.addNode(methodSignature + " " + statement + " " + DFF);
+                    Node currNode = graph.addNode(statement + "," + DFF);
                     if (previousNode != null) {
                         graph.addEdge(previousNode.getId() + currNode.getId(), previousNode, currNode);
                     }
