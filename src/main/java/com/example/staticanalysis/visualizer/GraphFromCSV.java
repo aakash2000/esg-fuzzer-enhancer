@@ -28,7 +28,7 @@ public class GraphFromCSV {
         Arrays.sort(files, (f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified()));
         String latestCsvFile = files[0].getAbsolutePath();
         Graph graph = new SingleGraph("DemoGraph");
-        graph.addAttribute("ui.stylesheet", "node { text-size: 18; }");
+        graph.addAttribute("ui.stylesheet", "node { text-size: 12; }");
         try (BufferedReader br = new BufferedReader(new FileReader(latestCsvFile))) {
             String line;
             Node previousNode = null;

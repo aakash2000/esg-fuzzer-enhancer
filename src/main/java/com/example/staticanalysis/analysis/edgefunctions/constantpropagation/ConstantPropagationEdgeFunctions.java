@@ -12,18 +12,18 @@ public class ConstantPropagationEdgeFunctions {
 
     private static final Logger logger = LoggerFactory.getLogger(ConstantPropagationEdgeFunctions.class);
     public static EdgeFunction<Value> getNormalEdgeFunction(Unit unit, DFF dff, Unit n1, DFF d1) {
-        return new NormalEdgeFunction();
+        return new NormalEdgeFunction(unit, dff, n1, d1);
     }
 
     public static EdgeFunction<Value> getCallEdgeFunction(Unit unit, DFF dff, SootMethod sootMethod, DFF d1) {
-        return new NormalEdgeFunction();
+        return new CallEdgeFunction(unit, dff, sootMethod, d1);
     }
 
     public static EdgeFunction<Value> getReturnEdgeFunction(Unit unit, SootMethod sootMethod, Unit n1, DFF dff, Unit n2, DFF d1) {
-        return new NormalEdgeFunction();
+        return new ReturnEdgeFunction(unit, sootMethod, n1, dff, n2, d1);
     }
 
     public static EdgeFunction<Value> getCallToReturnEdgeFunction(Unit unit, DFF dff, Unit n1, DFF d1) {
-        return new NormalEdgeFunction();
+        return new CallToReturnEdgeFunction(unit, dff, n1, d1);
     }
 }

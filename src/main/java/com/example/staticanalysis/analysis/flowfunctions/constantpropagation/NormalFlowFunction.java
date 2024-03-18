@@ -31,12 +31,14 @@ public class NormalFlowFunction extends GenericFlowFunction {
         Set<DFF> returnSet = new HashSet<>();
         if (this.curr != null) {
             /* Normal Flow Function */
-            if (this.curr.getUseBoxes() != null) {
+            /*if (this.curr.getUseBoxes() != null) {
                 this.curr.getUseBoxes().forEach(useBox -> {
                     if (useBox != null) {
                         if (useBox.getClass().getName() == "soot.jimple.internal.JAssignStmt$LinkedRValueBox") {
                             JAssignStmt.LinkedRValueBox linkedRValueBox = (JAssignStmt.LinkedRValueBox) useBox;
-                            linkedRValueBox.getValue().getUseBoxes().forEach(useBox1 -> {
+                            DFF newDFF = new DFF(linkedRValueBox.getValue(), null);
+                            returnSet.add(newDFF);
+                            *//*linkedRValueBox.getValue().getUseBoxes().forEach(useBox1 -> {
                                 if (useBox1.getValue().getClass() == JimpleLocal.class) {
                                     DFFManager.getInstance().getDFFs().forEach(dff -> {
                                         if (dff.getValuePair() != null) {
@@ -46,21 +48,24 @@ public class NormalFlowFunction extends GenericFlowFunction {
                                         }
                                     });
                                 }
-                            });
+                            });*//*
                         }
                     }
                 });
-            }
+            }*/
             if (this.curr.getDefBoxes() != null) {
                 this.curr.getDefBoxes().forEach(defBox -> {
                     Set<DFF> tempSet = new HashSet<>();
-                    dffManager.getDFFs().forEach(dff -> {
+                    if (defBox.getValue().getType().toQuotedString().equals("int")) {
+                        DFF newDFF = new DFF(defBox.getValue());
+                        tempSet.add(newDFF);
+                    }
+                    /*dffManager.getDFFs().forEach(dff -> {
                         if (dff.getMethod() != null && defBox.getClass().getEnclosingMethod() == dff.getMethod().getClass().getEnclosingMethod()) {
                             DFF newDFF = new DFF(defBox.getValue(), dff.getFact(), null);
                             tempSet.add(newDFF);
-                            returnSet.add(newDFF);
                         }
-                    });
+                    });*/
                     if (!tempSet.isEmpty()) {
                         tempSet.forEach(dff -> {
                             dffManager.addDFF(dff);
@@ -71,7 +76,20 @@ public class NormalFlowFunction extends GenericFlowFunction {
                         this.curr.getUseBoxes().forEach(useBox -> {
                             if (useBox.getClass() == JAssignStmt.LinkedRValueBox.class) {
                                 JAssignStmt.LinkedRValueBox linkedRValueBox = (JAssignStmt.LinkedRValueBox) useBox;
-                                if (linkedRValueBox.getValue().getClass() == JAddExpr.class) {
+                                linkedRValueBox.getValue().getUseBoxes().forEach(useBox1 -> {
+                                    DFFManager.getInstance().getDFFs().forEach(dff -> {
+                                        if (dff.getFact() != null) {
+                                            if (dff.getFact() == useBox1.getValue() && dff.getFact() != defBox.getValue()) {
+                                                System.out.println("Draw an edge from " + dff.getFact() + " to " + defBox.getValue());
+                                                DFF newDFF = new DFF(defBox.getValue());
+                                                DFFManager.getInstance().addDFF(newDFF);
+                                                returnSet.add(dff);
+                                                returnSet.add(newDFF);
+                                            }
+                                        }
+                                    });
+                                });
+                                /*if (linkedRValueBox.getValue().getClass() == JAddExpr.class) {
                                     JAddExpr jAddExpr = (JAddExpr) linkedRValueBox.getValue();
                                     if (jAddExpr.getOp1() instanceof IntConstant && jAddExpr.getOp2() instanceof IntConstant) {
                                         IntConstant intConstant1 = (IntConstant) jAddExpr.getOp1();
@@ -107,7 +125,7 @@ public class NormalFlowFunction extends GenericFlowFunction {
                                         DFF newDFF = new DFF(defBox.getValue(), IntConstant.v(result), null);
                                         DFFManager.getInstance().addDFF(newDFF);
                                     }
-                                }
+                                }*/
                             }
                         });
                     }
@@ -116,7 +134,9 @@ public class NormalFlowFunction extends GenericFlowFunction {
             }
 
         }
-        return Collections.singleton(source);
+        System.out.println("NormalFlowFunction source: " + source);
+        System.out.println("NormalFlowFunction returnSet: " + (returnSet.isEmpty() ? Collections.singleton(source) : returnSet));
+        return returnSet.isEmpty() ? Collections.singleton(source) : returnSet;
     }
 
 }

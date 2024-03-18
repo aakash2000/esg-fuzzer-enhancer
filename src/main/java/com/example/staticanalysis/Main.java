@@ -75,14 +75,14 @@ public class Main {
             DFFManager.getInstance().getDFFs().forEach(dff -> {
                 System.out.println("DFF: "+ dff);
             });
-            /*logger.info("Sleeping for 2 seconds to allow the graph to be generated...");
+            logger.info("Sleeping for 2 seconds to allow the graph to be generated...");
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             logger.info("Generating graph from CSV dump...");
-            GraphFromCSV.main(args);*/
+            GraphFromCSV.main(args);
             logger.info("Done!");
         }
 

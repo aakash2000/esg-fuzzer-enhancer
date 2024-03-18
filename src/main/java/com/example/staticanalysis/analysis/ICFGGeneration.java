@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import soot.*;
 import soot.jimple.spark.SparkTransformer;
 
+import soot.jimple.toolkits.callgraph.ReachableMethods;
 import soot.jimple.toolkits.ide.JimpleIDESolver;
 import soot.toolkits.graph.ExceptionalUnitGraph;
 import soot.toolkits.graph.UnitGraph;
@@ -42,7 +43,6 @@ public class ICFGGeneration {
 
         logger.info("Running Spark...");
         SparkTransformer.v().transform();
-        logger.info(String.valueOf(Scene.v().getMainMethod()));
         ESGGenerationProblem problem = new ESGGenerationProblem(Scene.v().getMainMethod(), data_facts);
         JimpleIDESolver<?, ?, ?> solver = new JimpleIDESolver<>(problem, true);
         try {
